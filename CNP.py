@@ -67,6 +67,12 @@ def print_linkedlist_size(hash_table: dict) -> None:
 def Generare_CNP(numar: int):
     populatie = file.readlines()
     JJ = 1
+    counter = 0  # Contor pentru numărul de CNP-uri generate
+
+    fete = f1.read().split()
+    baieti = f2.read().split()
+    nume_familii = f3.read().split()
+
     with open("CNP.txt", "w") as cnp_file:
         for element in range(numar):
             for i in populatie:
@@ -74,7 +80,9 @@ def Generare_CNP(numar: int):
                 if JJ == 53:
                     break
                 for item in range(reg_trei_simpla):
-                    CNP = []
+                    if counter >= numar:
+                        return
+
                     control = 0
                     S1 = random.randint(1, 100)
                     AA_raport = random.randint(0, 100)
@@ -105,12 +113,7 @@ def Generare_CNP(numar: int):
                     if ZZ < 10:
                         ZZ = f'0{ZZ}'
 
-                    if JJ == 41:
-                        JJ = 51
-                    if JJ < 10:
-                        JJ = f'0{JJ}'
-                    else:
-                        JJ = str(JJ)
+                    JJ_str = f"{JJ:02}"
 
                     nnn = random.randint(1, 999)
                     if nnn < 10:
@@ -120,7 +123,7 @@ def Generare_CNP(numar: int):
                     else:
                         nnn = str(nnn)
 
-                    cnp = f'{S}{AA}{LL}{ZZ}{JJ}{nnn}'
+                    cnp = f'{S}{AA}{LL}{ZZ}{JJ_str}{nnn}'
 
                     constant = "279146358279"
                     for i in range(12):
@@ -132,17 +135,16 @@ def Generare_CNP(numar: int):
 
                     CNP_nume = [cnp]
                     if S % 2 == 0:
-                        n = random.choice(open("Fete.txt").read().split())
-                        CNP_nume.append(n)
+                        CNP_nume.append(random.choice(fete))
                     else:
-                        B = random.choice(open("Baieti.txt").read().split())
-                        CNP_nume.append(B)
+                        CNP_nume.append(random.choice(baieti))
 
-                    N = random.choice(open("Nume.txt").read().split())
-                    CNP_nume.append(N)
+                    CNP_nume.append(random.choice(nume_familii))
 
                     complet = " ".join(CNP_nume)
                     cnp_file.write(f"{complet}\n")
+
+                    counter += 1  # Incrementăm contorul
 
                 JJ += 1
 
@@ -185,19 +187,23 @@ def random_CNP(file_path: str, count: int) -> list:
 
 
 if __name__ == '__main__':
-    # Generarea celor 1M CNP
+    # Generarea celor 1M CNP - doar când e nevoie
     # Generare_CNP(1000000)
 
-    # Generare hastable
+    # Generare hastable pe baza fișierului CNP.txt existent
     hash_table = HashTable()
 
-    # Selectarea a 1000 de CNP-uri din lista
+    # Selectarea a 1000 de CNP-uri din lista pentru căutare
     random_CNPs = random_CNP("CNP.txt", 1000)
 
-    # Cautarea CNP-urilor, si analiza iteratiilor necesare
+    # Printarea fiecarui Bucket - doar pentru testare
+    # print_linkedlist_size(hash_table)
+
+    # Căutarea CNP-urilor și analiza iteratiilor necesare
     total_iterations = 0
     for cnp in random_CNPs:
         iterations = Cautare_CNP(cnp, hash_table)
         total_iterations += iterations if iterations != -1 else 0
 
-    print(f"Iteratiile necesare pentru regasirea CNP-urilor: {total_iterations}")
+    print(f"Iterațiile necesare pentru regăsirea CNP-urilor: {total_iterations}")
+

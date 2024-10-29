@@ -194,9 +194,6 @@ if __name__ == '__main__':
     # Selectarea a 1000 de CNP-uri din lista
     random_CNPs = random_CNP("CNP.txt", 1000)
 
-    # Printarea fiecarui Bucket
-    # print_linkedlist_size(hash_table)
-
     # Cautarea CNP-urilor, si analiza iteratiilor necesare
     total_iterations = 0
     for cnp in random_CNPs:

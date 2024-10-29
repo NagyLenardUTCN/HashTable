@@ -188,7 +188,10 @@ def random_CNP(file_path: str, count: int) -> list:
 
 if __name__ == '__main__':
     # Generarea celor 1M CNP - doar când e nevoie
-    # Generare_CNP(1000000)
+    """
+ !!!!!   Dupa popularea file-ului CNP.txt comentati afara Generare_CNP(1000000), sa nu mai genereze CNP din nou   !!!!!
+    """
+    Generare_CNP(1000000)
 
     # Generare hastable pe baza fișierului CNP.txt existent
     hash_table = HashTable()

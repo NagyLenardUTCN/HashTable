@@ -87,11 +87,11 @@ def Generare_CNP(numar: int):
                     S1 = random.randint(1, 100)
                     AA_raport = random.randint(0, 100)
 
-                    if S1 <= 45 and AA_raport > 24:
+                    if S1 <= 49 and AA_raport > 24:
                         S = 1
-                    elif S1 <= 45 and AA_raport <= 24:
+                    elif S1 <= 49 and AA_raport <= 24:
                         S = 5
-                    elif S1 > 45 and AA_raport > 24:
+                    elif S1 > 49 and AA_raport > 24:
                         S = 2
                     else:
                         S = 6
